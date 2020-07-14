@@ -1,7 +1,5 @@
 <?php
-    //CORS Headers
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: *");
+    require 'dbh.php';
 
     //HTTP inputs
     $rest_json = file_get_contents("php://input");
@@ -9,13 +7,9 @@
 
     $id = $_POST['id'];
 
-    //connecting to SQL Database
-    $con = mysqli_connect("localhost", "root", "", "othscmsdb");
-
     //looking for matching username
     $sql = "SELECT * FROM submissions where id = \"$id\"";
     $res = mysqli_query($con, $sql);
-
 
     //checking if password is correct
     if(mysqli_num_rows($res)>0){

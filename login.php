@@ -1,16 +1,11 @@
 <?php
-    //CORS Headers
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: *");
+    require 'dbh.php';
 
     //HTTP inputs
     $rest_json = file_get_contents("php://input");
     $_POST = json_decode($rest_json, true);
     $username =  $_POST['username'];
     $password = $_POST['password'];
-
-    //connecting to SQL Database
-    $con = mysqli_connect("localhost", "root", "", "othscmsdb");
 
     //looking for matching username
     $sql = "SELECT * FROM users WHERE username=\"$username\"";
@@ -24,7 +19,7 @@
             $id = $row['id'];
             $sql = "UPDATE users SET auth_token=\"$token\" WHERE id=$id;";
             $res = mysqli_query($con, $sql);
-            $response = array('authenticated' => true, 'auth_key' => $token, 'role' => $row['role']);
+            $response = array('authenticated' => true, 'auth_key' => $token, 'admin' => $row['role'] == 'JUDGE', 'role' => $row['role'], 'team' => $username);
             echo json_encode($response);
             exit;
         }

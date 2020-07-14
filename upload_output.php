@@ -1,14 +1,8 @@
 <?php
-    //CORS Headers
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: *");
+    require 'dbh.php';
 
     $problem = $_POST['problem'];
     $team = $_POST['team'];
-
-
-    //connecting to SQL Database
-    $con = mysqli_connect("localhost", "root", "", "othscmsdb");
     
     $filename = $_FILES['file']['name'];
     //Stores the filetype e.g image/jpeg

@@ -1,6 +1,6 @@
 <?php
-    //CORS Headers
-    header("Access-Control-Allow-Origin: *");
+    require 'dbh.php';
+
     header("Access-Control-Allow-Headers: *");
 
     //HTTP inputs
@@ -8,9 +8,6 @@
     $_POST = json_decode($rest_json, true);
 
     $team = $_POST['team'];
-
-    //connecting to SQL Database
-    $con = mysqli_connect("localhost", "root", "", "othscmsdb");
 
     //looking for matching username
     $sql = "SELECT * FROM submissions where user = \"$team\"";

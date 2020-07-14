@@ -1,7 +1,6 @@
 <?php
-    //CORS Headers
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: *");
+    require 'dbh.php';
+
 
     //HTTP inputs
     $rest_json = file_get_contents("php://input");
@@ -9,12 +8,7 @@
     $problem =  $_POST['problem'];
     $append = $_POST['append'];
 
-    //connecting to SQL Database
-    $con = mysqli_connect("localhost", "root", "", "othscmsdb");
-
-
     if($append){
-    
         //looking for matching ptoblem
         $sql = "INSERT INTO problems (problem) VALUES (\"$problem\")";
         $res = mysqli_query($con, $sql);

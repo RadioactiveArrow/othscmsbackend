@@ -1,7 +1,6 @@
 <?php
-    //CORS Headers
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: *");
+    require 'dbh.php';
+
 
     //HTTP inputs
     $rest_json = file_get_contents("php://input");
@@ -11,7 +10,6 @@
       echo "Exiting";
       exit;
     }
-    $con = mysqli_connect("localhost", "root", "", "othscmsdb");
 
     $res = mysqli_query($con, "SELECT * from timer");
     $response = -1;

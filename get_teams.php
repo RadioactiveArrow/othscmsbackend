@@ -1,10 +1,5 @@
 <?php
-    //CORS Headers
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: *");
-
-    //connecting to SQL Database
-    $con = mysqli_connect("localhost", "root", "", "othscmsdb");
+    require 'dbh.php';
 
     //looking for matching username
     $sql = "SELECT * FROM users";

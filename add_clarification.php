@@ -1,18 +1,18 @@
 <?php
-    //CORS Headers
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: *");
+    require 'dbh.php';
 
     //HTTP inputs
     $rest_json = file_get_contents("php://input");
     $_POST = json_decode($rest_json, true);
+
     $username =  $_POST['team'];
     $question =  $_POST['question'];
     $problem = $_POST['problem'];
 
-
-    //connecting to SQL Database
-    $con = mysqli_connect("localhost", "root", "", "othscmsdb");
+    //Escapes vars
+    $username = mysqli_real_escape_string($con, $username);
+    $question = mysqli_real_escape_string($con, $question);
+    $problem = mysqli_real_escape_string($con, $problem);
 
     if(isset($question)){
         //insert to database
