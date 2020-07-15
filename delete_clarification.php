@@ -8,8 +8,15 @@
     $_POST = json_decode($rest_json, true);
     $id = $_POST['id'];
 
-    $sql = "DELETE FROM clarifications WHERE id = \"$id\"";
-    $res = mysqli_query($con, $sql);
+    $sql = "DELETE FROM clarifications WHERE id = ?";
+    $output = prepared_sql($sql,[$id]);
+    if($output['success']) {
+        $response = array('success' => true);
+    }
+    else {
+        $response = array('success' => false);
+    }    
+    $res = $output['res'];
 
     echo "success";
     die;

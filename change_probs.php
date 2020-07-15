@@ -12,16 +12,29 @@
 
     if($append){
         //looking for matching ptoblem
-        $sql = "INSERT INTO problems (problem) VALUES (\"$problem\")";
-        $res = mysqli_query($con, $sql);
+        $sql = "INSERT INTO problems (problem) VALUES (?)";
+        $output = prepared_sql($sql,[$problem]);
+        if($output['success']) {
+            $response = array('success' => true);
+        }
+        else {
+            $response = array('success' => false);
+        }        $res = $output['res'];
+
 
         echo "success";
         die;
     }
     else{
         //looking for matching problem
-        $sql = "DELETE FROM problems WHERE problem = \"$problem\"";
-        $res = mysqli_query($con, $sql);
+        $sql = "DELETE FROM problems WHERE problem = ?";
+        $output = prepared_sql($sql,[$problem]);
+        if($output['success']) {
+            $response = array('success' => true);
+        }
+        else {
+            $response = array('success' => false);
+        }        $res = $output['res'];
 
         echo "success";
         die;

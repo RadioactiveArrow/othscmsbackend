@@ -39,9 +39,16 @@
 
             $filePath = $filePath . $filename;
             
-            $sql = "INSERT INTO submissions (user, problemName, filePath) VALUES (\"$team\", \"$problem\", \"$filePath\")";
-            $res = mysqli_query($con, $sql);
-
+            $sql = "INSERT INTO submissions (user, problemName, filePath) VALUES (?,?,?)";
+            $output = prepared_sql($sql,[$user,$problemName,$filePath]);
+            if($output['success']) {
+                $response = array('success' => true);
+            }
+            else {
+                $response = array('success' => false);
+            }     
+            $res = $output['res'];
+            
             echo "Sussecfully uploaded your image.";
         }
         else {

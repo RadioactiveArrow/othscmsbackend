@@ -11,14 +11,25 @@
 
     if($school != ""){
         //update school
-        $sql = "UPDATE teams SET school = \"$school\" where team = \"$team\"";
-        $res = mysqli_query($con, $sql);
+        $sql = "UPDATE teams SET school = ? where team = ?";
+        $output = prepared_sql($sql,[$team,$school]);
+        if($output['success']) {
+            $response = array('success' => true);
+        }
+        else {
+            $response = array('success' => false);
+        }        $res = $output['res'];
     }
 
     //update school
-    $sql = "SELECT * from teams where team = \"$team\"";
-    $res = mysqli_query($con, $sql);
-
+    $sql = "SELECT * from teams where team = ?";
+    $output = prepared_sql($sql,[$team]);
+    if($output['success']) {
+        $response = array('success' => true);
+    }
+    else {
+        $response = array('success' => false);
+    }        $res = $output['res'];
     //checking if password is correct
     if(mysqli_num_rows($res)>0){
         while($row = mysqli_fetch_assoc($res)){

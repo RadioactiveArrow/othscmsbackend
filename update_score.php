@@ -11,20 +11,41 @@
     $score = $_POST['score'];
 
     if($member == 1){
-        //update school
-        $sql = "UPDATE teams SET score1 = $score where id = $id";
-        $res = mysqli_query($con, $sql);
-    }
+        //update score
+        $sql = "UPDATE teams SET score1 = $score where id = ?";
+        $output = prepared_sql($sql,[$member,$score]);
+        if($output['success']) {
+            $response = array('success' => true);
+        }
+        else {
+            $response = array('success' => false);
+        }     
+        $res = $output['res'];
+        }
     if($member == 2){
-        //update school
-        $sql = "UPDATE teams SET score2 = $score where id = $id";
-        $res = mysqli_query($con, $sql);
+        //update score
+        $sql = "UPDATE teams SET score2 = $score where id = ?";
+        $output = prepared_sql($sql,[$member,$score]);
+        if($output['success']) {
+            $response = array('success' => true);
+        }
+        else {
+            $response = array('success' => false);
+        }     
+        $res = $output['res'];    
     }
     if($member == 3){
-        //update school
-        $sql = "UPDATE teams SET score3 = $score where id = $id";
-        $res = mysqli_query($con, $sql);
-    }
+        //update score
+        $sql = "UPDATE teams SET score3 = $score where id = ?";
+        $output = prepared_sql($sql,[$member,$score]);
+        if($output['success']) {
+            $response = array('success' => true);
+        }
+        else {
+            $response = array('success' => false);
+        }     
+        $res = $output['res'];  
+      }
 
     echo "success";
     

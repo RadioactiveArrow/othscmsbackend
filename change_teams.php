@@ -18,12 +18,30 @@
     if($append){
         
         //looking for matching user
-        $sql = "INSERT INTO users (username, password, role) VALUES (\"$username\", \"$password\", \"$role\")";
-        $res = mysqli_query($con, $sql);
-        if($role == "COMPETITOR"){
-            $sql = "INSERT INTO teams (team) VALUES (\"$username\")";
-            $res = mysqli_query($con, $sql);
+        $sql = "INSERT INTO users (username, password, role) VALUES (?,?,?)";
+        $output = prepared_sql($sql,[$username,$password,$role]);
+        if($output['success']) {
+            $response = array('success' => true);
         }
+        else {
+            $response = array('success' => false);
+        }    
+        $res = $output['res'];
+
+
+        if($role == "COMPETITOR"){
+            $sql = "INSERT INTO teams (team) VALUES (?)";
+            $output = prepared_sql($sql,[$team]);
+            if($output['success']) {
+                $response = array('success' => true);
+            }
+            else {
+                $response = array('success' => false);
+            }    
+            $res = $output['res'];
+        }
+
+
         if (!is_dir('submissions/'.$username) && $role == 'COMPETITOR') 
             mkdir("submissions/".$username, 0700);
         echo "success";
@@ -32,12 +50,42 @@
     //checks if this is not a preflight request
     else if ($username != ""){
         //looking for matching user
-        $sql = "DELETE FROM users WHERE username = \"$username\"";
-        $res = mysqli_query($con, $sql);
-        $sql = "DELETE FROM teams WHERE team = \"$username\"";
-        $res = mysqli_query($con, $sql);
-        $sql = "DELETE FROM submissions WHERE user = \"$username\"";
-        $res = mysqli_query($con, $sql);
+        $sql = "DELETE FROM users WHERE username = ?";
+        $output = prepared_sql($sql,[$username]);
+        if($output['success']) {
+            $response = array('success' => true);
+        }
+        else {
+            $response = array('success' => false);
+        }    
+        $res = $output['res'];        
+
+    // /////////////////////////////////////////////////////
+
+        $sql = "DELETE FROM teams WHERE team = ?";
+        $output = prepared_sql($sql,[$teams]);
+        if($output['success']) {
+            $response = array('success' => true);
+        }
+        else {
+            $response = array('success' => false);
+        }    
+        $res = $output['res'];
+        // /////////////////////////////////////////////////////
+
+        $sql = "DELETE FROM submissions WHERE user = ?";
+        $output = prepared_sql($sql,[$user]);
+        if($output['success']) {
+            $response = array('success' => true);
+        }
+        else {
+            $response = array('success' => false);
+        }    
+        $res = $output['res'];
+
+
+
+
         if (is_dir('submissions/'.$username))
             rmdir_recursive('submissions/'.$username.'/');
         echo "success";

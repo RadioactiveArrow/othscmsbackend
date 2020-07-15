@@ -10,9 +10,15 @@
     $id = $_POST['id'];
 
     //looking for matching username
-    $sql = "SELECT * FROM submissions where id = \"$id\"";
-    $res = mysqli_query($con, $sql);
-
+    $sql = "SELECT * FROM submissions where id = ?";
+    $output = prepared_sql($sql,[$id]);
+    if($output['success']) {
+        $response = array('success' => true);
+    }
+    else {
+        $response = array('success' => false);
+    }     
+    $res = $output['res'];
     //checking if password is correct
     if(mysqli_num_rows($res)>0){
       while($row = mysqli_fetch_assoc($res)){

@@ -12,9 +12,15 @@
     $team = $_POST['team'];
 
     //looking for matching username
-    $sql = "SELECT * FROM submissions where user = \"$team\"";
-    $res = mysqli_query($con, $sql);
-
+    $sql = "SELECT * FROM submissions where user = ?";
+    $output = prepared_sql($sql,[$team]);
+    if($output['success']) {
+        $response = array('success' => true);
+    }
+    else {
+        $response = array('success' => false);
+    }     
+    $res = $output['res'];
 
     $rows = [];
     //checking if password is correct
