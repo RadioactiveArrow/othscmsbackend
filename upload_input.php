@@ -1,5 +1,6 @@
 <?php
     require 'dbh.php';
+    require 'db_manager.php';
 
 
     $problem = $_POST['problem'];

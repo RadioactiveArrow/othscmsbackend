@@ -1,5 +1,6 @@
 <?php
     require 'dbh.php';
+    require 'db_manager.php';
 
     //HTTP inputs
     $rest_json = file_get_contents("php://input");

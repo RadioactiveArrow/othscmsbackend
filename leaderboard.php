@@ -1,5 +1,7 @@
 <?php
   require 'dbh.php';
+  require 'db_manager.php';
+
 
 
   class Team{

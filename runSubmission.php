@@ -1,6 +1,8 @@
 <?php
 
 require 'dbh.php';
+require 'db_manager.php';
+
 
 /*
 //HTTP inputs

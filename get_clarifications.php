@@ -1,5 +1,7 @@
 <?php
     require 'dbh.php';
+    require 'db_manager.php';
+
 
     //looking for matching username
     $sql = "SELECT * FROM clarifications";

@@ -1,5 +1,7 @@
 <?php
     require 'dbh.php';
+    require 'db_manager.php';
+
 
     header("Access-Control-Allow-Headers: *");
 
