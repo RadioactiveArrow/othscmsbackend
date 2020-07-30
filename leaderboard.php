@@ -85,6 +85,3 @@
     //json encode schools
     echo json_encode($schools);
   }
-
-
-?>

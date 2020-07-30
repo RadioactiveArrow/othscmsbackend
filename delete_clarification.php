@@ -11,15 +11,12 @@
     $sql = "DELETE FROM clarifications WHERE id = ?";
     $output = prepared_sql($sql,[$id]);
     if($output['success']) {
+        $res = $output['res'];
         $response = array('success' => true);
     }
     else {
         $response = array('success' => false);
     }    
-    $res = $output['res'];
 
-    echo "success";
+    echo $response;
     die;
-
-    //echo "failure";
-    ?>

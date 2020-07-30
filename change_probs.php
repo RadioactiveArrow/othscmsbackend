@@ -2,8 +2,6 @@
     require 'dbh.php';
     require 'db_manager.php';
 
-
-
     //HTTP inputs
     $rest_json = file_get_contents("php://input");
     $_POST = json_decode($rest_json, true);
@@ -15,15 +13,12 @@
         $sql = "INSERT INTO problems (problem) VALUES (?)";
         $output = prepared_sql($sql,[$problem]);
         if($output['success']) {
+            $res = $output['res'];
             $response = array('success' => true);
         }
         else {
             $response = array('success' => false);
-        }        $res = $output['res'];
-
-
-        echo "success";
-        die;
+        }        
     }
     else{
         //looking for matching problem
@@ -34,11 +29,6 @@
         }
         else {
             $response = array('success' => false);
-        }        $res = $output['res'];
-
-        echo "success";
-        die;
+        }      
     }
-
-    echo "failure";
-    ?>
+    echo $response;

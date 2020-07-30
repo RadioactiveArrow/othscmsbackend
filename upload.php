@@ -43,11 +43,11 @@
             $output = prepared_sql($sql,[$user,$problemName,$filePath]);
             if($output['success']) {
                 $response = array('success' => true);
+                $res = $output['res'];
             }
             else {
                 $response = array('success' => false);
             }     
-            $res = $output['res'];
             
             echo "Successfully uploaded your image.";
         }
